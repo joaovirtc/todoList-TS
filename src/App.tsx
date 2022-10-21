@@ -6,14 +6,14 @@ import "remixicon/fonts/remixicon.css";
 
 const App: FC = () => {
   const [task, setTask] = useState<string>("");
-  const [deadline, setDealine] = useState<number>(0);
+  const [deadline, setDeadline] = useState<any>("");
   const [todoList, setTodoList] = useState<ITask[]>([]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.name === "task") {
       setTask(event.target.value);
     } else {
-      setDealine(Number(event.target.value));
+      setDeadline(Number(event.target.value));
     }
   };
 
@@ -21,7 +21,7 @@ const App: FC = () => {
     const newTask = { taskName: task, deadline: deadline };
     setTodoList([...todoList, newTask]);
     setTask("");
-    setDealine(0);
+    setDeadline("");
   };
 
   const completeTask = (taskNameToDelete: string): void => {
@@ -38,20 +38,22 @@ const App: FC = () => {
         <div className="inputContainer">
           <input
             type="text"
-            placeholder="Task..."
+            placeholder="Tarefa"
             name="task"
             value={task}
             onChange={handleChange}
           />
           <input
             type="number"
-            placeholder="Deadline (in Days)..."
+            placeholder="Tempo (em dias)"
             name="deadline"
             value={deadline}
             onChange={handleChange}
           />
+          <button onClick={addTask}>
+            <i className="ri-add-circle-line"></i>
+          </button>
         </div>
-        <button onClick={addTask}>Add Task</button>
       </div>
       <div className="todoList">
         {todoList.map((task: ITask, key: number) => {
